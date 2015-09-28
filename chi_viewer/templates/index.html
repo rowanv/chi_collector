@@ -26,20 +26,21 @@
     {% block header_script %}
     {% endblock %}
 
+
+
 </head>
 
 
 <body>
-
+	<div>
 	<h1>Chi Collector: Freelance Work Aggregator</h1>
 
 
-	<form action="/your-name/" method="post">
+	<form action="/" method="post">
     	{% csrf_token %}
     	{{ form }}
     	<input type="submit" value="Submit" />
 	</form>
-
 	<div class='table-responsive form-inputs'>
 		<table class='table table-striped'>
 
@@ -60,8 +61,20 @@
 		{% if postings_list %}
 			{% for post in postings_list %}
 				<tr>
-					<td>{{ post.will_apply }}</td>
-					<td>{{ post.applied }}</td>
+					<td>
+						<div class='checkbox'>
+						<label>
+							<input type='checkbox' {% if post.will_apply %} checked {% endif %}
+						</label>
+						</div>
+					</td>
+					<td>
+						<div class='checkbox'>
+						<label>
+							<input type='checkbox' {% if post.applied %} checked {% endif %}
+						</label>
+						</div>
+					</td>
 					<td>{{ post.title }}</td>
 					<td>{{ post.score }}</td>
 					<td>{{ post.source }}</td>
@@ -79,7 +92,70 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="static/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
+        <script>
+
+//For getting CSRF token
+function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+               var cookie = jQuery.trim(cookies[i]);
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) == (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+             }
+          }
+      }
+ return cookieValue;
+}
+
+
+//For doing AJAX post
+
+//When submit is clicked
+ $("#submit").click(function(e) {
+
+//Prevent default submit. Must for Ajax post.Beginner's pit.
+ e.preventDefault();
+
+//Prepare csrf token
+ var csrftoken = getCookie('csrftoken');
+
+
+//Collect data from fields
+ var check_1 = $('#id_check1').val();
+
+ console.log(check_1);
+
+//This is the Ajax post.Observe carefully. It is nothing but details of where_to_post,what_to_post
+//Send data
+ $.ajax({
+       url : window.location.href, // the endpoint,commonly same url
+       type : "POST", // http method
+       data : { csrfmiddlewaretoken : csrftoken,
+       check_1 : check_1
+ }, // data sent with the post request
+
+ // handle a successful response
+ success : function(json) {
+ console.log(json); // another sanity check
+ //On success show the data posted to server as a message
+ alert('Hi   '+json['check_1']);
+ },
+
+ // handle a non-successful response
+ error : function(xhr,errmsg,err) {
+ console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+ }
+ });
+});
+</script>
+
+</div>
 </body>
 
 </html>
