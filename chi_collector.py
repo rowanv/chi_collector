@@ -67,8 +67,30 @@ df = df.ix[df.Score >= 1,]
 
 sorted_dictionary = sorted(filtered_dictionary.items(), key=lambda x: x[1], reverse=True)
 df = df.sort(['Score'], ascending=[0])
+df = df.reset_index(drop=True)
 
 pprint.pprint(sorted_dictionary)
 print(df)
+
+#from django.db import connection
+#query = str(Posting.objects.all().query)
+#current_data = pd.read_sql_query(query, connection)
+
+#df.to_sql()
+
+from django.db import models
+from chi_viewer.models import Posting
+import datetime
+
+for row_num, row in df.iterrows():
+	current_row = Posting(title=row.Title,
+		source=row.Source,
+		summary=row.Summary,
+		score=row.Score,
+		link=row.Link,
+		time_written=datetime.datetime.now()
+		)
+	current_row.save()
+	print(current_row)
 
 
