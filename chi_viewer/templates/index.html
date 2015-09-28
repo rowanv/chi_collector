@@ -33,7 +33,14 @@
 
 	<h1>Chi Collector: Freelance Work Aggregator</h1>
 
-	<div class='table-responsive'>
+
+	<form action="/your-name/" method="post">
+    	{% csrf_token %}
+    	{{ form }}
+    	<input type="submit" value="Submit" />
+	</form>
+
+	<div class='table-responsive form-inputs'>
 		<table class='table table-striped'>
 
 
