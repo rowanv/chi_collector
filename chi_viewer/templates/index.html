@@ -7,16 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Rowan V">
 
     <title>Chi Collector: Freelance Work Aggregator</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-
-    <!-- Custom CSS -->
-    <link href="/static/css/1-col-portfolio.css" rel="stylesheet">
-    <link href='/static/css/bootstrap-tags.css' rel='stylesheet'>
 
 
 
@@ -35,13 +31,47 @@
 
 <body>
 
+	<h1>Chi Collector: Freelance Work Aggregator</h1>
 
-{% if postings_list %}
-	{% for post in postings_list %}
-	<h1> {{ post.title }} </h1>
-	{% endfor %}
-{% endif %}
+	<div class='table-responsive'>
+		<table class='table table-striped'>
 
+
+
+			<thead>
+				<tr>
+					<th>Will Apply</th>
+					<th>Applied</th>
+					<th>Title</th>
+					<th>Score</th>
+					<th>Source</th>
+					<th>Summary</th>
+					<th>Time Written</th>
+				</tr>
+			</thead>
+			<tbody>
+		{% if postings_list %}
+			{% for post in postings_list %}
+				<tr>
+					<td>{{ post.will_apply }}</td>
+					<td>{{ post.applied }}</td>
+					<td>{{ post.title }}</td>
+					<td>{{ post.score }}</td>
+					<td>{{ post.source }}</td>
+					<td>{{ post.summary }}</td>
+					<td>{{ post.time_written }}</td>
+				</tr>
+			{% endfor %}
+		{% endif %}
+			</tbody>
+
+		</table>
+	</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="static/js/bootstrap.min.js"></script>
 
 </body>
 

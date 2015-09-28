@@ -13,6 +13,6 @@ class HomePageTest(TestCase):
         def test_there_are_postings_in_home_page_list(self):
         	pass
 
-        def test can add postings to database(self):
+        def test_can_add_postings_to_database(self):
         	pass
         	#mocking?
