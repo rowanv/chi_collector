@@ -7,7 +7,7 @@ class Posting(models.Model):
 	score = models.PositiveIntegerField()
 	link = models.CharField(max_length=300)
 
-	time_written = models.TimeField()
+	date_written = models.DateTimeField()
 	will_apply = models.BooleanField(default=False)
 	applied = models.BooleanField(default=False)
 
